@@ -1,0 +1,2 @@
+class GamePieces extends GameBody {
+} //GamePieces class

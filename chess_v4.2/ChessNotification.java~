@@ -1,0 +1,83 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class NotificationUI {
+
+    //Create an Object for Main
+    static Main m = new Main();
+    //Create an Object for UserInterface
+    static UserInterface ui = new UserInterface();
+
+    
+    //Java Swing Componenets
+    static JFrame body;
+    static JPanel header;
+    static JPanel main;
+    static JButton restart;
+    static JButton close;
+
+    //Custom Panel Colours
+    protected static Color offWhite = new Color(224,224,224);
+
+    
+    //Source Code
+    public static void initalizeFrame() {
+        body = new JFrame();
+        body.getContentPane().setLayout(new BorderLayout()); //Standard Layout
+        body.setSize(new Dimension(250,200));
+        body.setLocationRelativeTo(null); //Center the Frame
+        body.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        body.setResizable(false);
+        body.setTitle("NOTIFICATION"); //Frame Title
+    } //initalize method
+
+    public static void initalizePanel() {
+        //header
+        header = new JPanel();
+        header.setLayout(new BorderLayout()); //Standard Layout
+        body.add(header, BorderLayout.PAGE_START);
+        //main
+        main = new JPanel();
+        main.setLayout(new FlowLayout()); //Standard Layout
+        header.setBackground(offWhite);
+        body.add(main, BorderLayout.CENTER);
+    } //initalizePanel method
+
+    public static void initalizeContent() {
+        //header
+        JLabel text = new JLabel("You Finished the Game!  |  Would you like to restart?");
+        header.add(text, BorderLayout.CENTER);
+        //main
+        restart = new JButton("Restart"); //Create a button to restart the game
+        main.add(restart);
+        close = new JButton("Close"); //Create a button to close the game
+        main.add(close);
+    } //content method
+    
+    public static void initalizeHandle() {
+      restart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                body.dispose(); //close the notidication frame
+                ui.body.dispose(); //close the game frame
+                m.initalizeProgram(m.sWidth, m.sHeight, m.gSize); //restart propgram
+            }
+        } );
+      close.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                body.dispose(); //close the notidication frame
+                ui.body.dispose(); //close the game frame
+            }
+        } );
+    } //initalizeHandle method
+    
+     public static void run() {
+        initalizeFrame(); //setup notification frame
+        initalizePanel(); //setup notification panels
+        initalizeContent(); //add the content to the notification panels
+        initalizeHandle(); //establish an action listener for the buttons
+        body.pack();
+        body.setVisible(true);
+    } //run method
+
+} //NotificationUI class
